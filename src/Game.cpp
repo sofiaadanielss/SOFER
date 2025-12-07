@@ -6,7 +6,9 @@
 Game::Game() 
     : currentState(MENU),           
       textureManager(),           
-      menuMusic({0}),                
+      menuMusic({0}), 
+      gameMusic({0}),  
+      currentMusic(nullptr),             
       musicPlaying(false),          
       player(nullptr),            
       enemies(),                    
@@ -20,27 +22,60 @@ Game::Game()
 }
 
 void Game::init() {
+
     InitWindow(800, 600, "SoferBlast");
     SetTargetFPS(60);
     
+    Image icon = LoadImage("assets/logo.png");
+    SetWindowIcon(icon);
+    UnloadImage(icon); 
+
     InitAudioDevice();
     textureManager.loadTextures();
+
     menuMusic = LoadMusicStream("assets/piano.wav"); 
+    gameMusic = LoadMusicStream("assets/game.wav");
     
     player = new Player(380, 500);
     musicPlaying = false;
 }
 
 void Game::playMenuMusic() {
-    if (!musicPlaying) {
+    if (currentMusic != &menuMusic) {
+        if (currentMusic && musicPlaying) {
+            StopMusicStream(*currentMusic);
+        }
+        
         PlayMusicStream(menuMusic);
+        currentMusic = &menuMusic;
         musicPlaying = true;
     }
 }
 
 void Game::stopMenuMusic() {
-    if (musicPlaying) {
+    if (currentMusic == &menuMusic && musicPlaying) {
         StopMusicStream(menuMusic);
+        currentMusic = nullptr;
+        musicPlaying = false;
+    }
+}
+
+void Game::playGameMusic() {
+    if (currentMusic != &gameMusic) {
+        if (currentMusic && musicPlaying) {
+            StopMusicStream(*currentMusic);
+        }
+        
+        PlayMusicStream(gameMusic);
+        currentMusic = &gameMusic;
+        musicPlaying = true;
+    }
+}
+
+void Game::stopGameMusic() {
+    if (currentMusic == &gameMusic && musicPlaying) {
+        StopMusicStream(gameMusic);
+        currentMusic = nullptr;
         musicPlaying = false;
     }
 }
@@ -83,14 +118,9 @@ void Game::handleInput() {
     }
 }
 
-void Game::update() {
-    
+void Game::update() {    
     if (currentState != PLAYING) return;
-    
-    if (musicPlaying) {
-        UpdateMusicStream(menuMusic);
-    }
-    
+
     spawnTimer += GetFrameTime();
     if (!bossSpawned && normalSpawned < 20) {
         if (spawnTimer >= 1.0f) {
@@ -162,7 +192,6 @@ void Game::update() {
 void Game::render() {
     BeginDrawing();
     ClearBackground(BLACK);
-    
     if (currentState == PLAYING) {
         player->render();
         scoreboard.render();
@@ -178,9 +207,13 @@ void Game::render() {
 
 void Game::gameLoop() {
     while (!WindowShouldClose()) {
+        if (musicPlaying && currentMusic) {
+            UpdateMusicStream(*currentMusic);
+        }
         switch (currentState) {
             case MENU:
                 playMenuMusic();
+                UpdateMusicStream(menuMusic);
                 UpdateMenu(currentState);  
                 BeginDrawing();
                 ClearBackground(BLACK);
@@ -192,6 +225,7 @@ void Game::gameLoop() {
                 break;
                 
             case PLAYING:
+                playGameMusic();
                 handleInput();
                 update();
                 render();
@@ -202,7 +236,7 @@ void Game::gameLoop() {
                 ClearBackground(BLACK);
                 DrawTexture(textureManager.getGameOverBg(),0,0,WHITE);
                 DrawText("GAME OVER", 230, 200, 60, RED);
-                DrawText("Press ENTER to return to Menu", 165, 300, 30, WHITE);
+                DrawText("Press ENTER to play again.", 165, 300, 30, WHITE);
                 DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 300, 400, 20, YELLOW);
                 EndDrawing();
                 
@@ -229,6 +263,7 @@ void Game::gameLoop() {
     
     stopMenuMusic();
     UnloadMusicStream(menuMusic);
+    UnloadMusicStream(gameMusic);
     CloseAudioDevice();
     CloseWindow();
 }

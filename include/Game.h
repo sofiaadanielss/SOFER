@@ -25,9 +25,12 @@ private:
     std::vector<Enemy*> enemies;
     std::vector<Bullet> bullets;
     ScoreBoard scoreboard;
-    Music menuMusic;
-    bool musicPlaying;
 
+    Music menuMusic;
+    Music gameMusic;
+    Music* currentMusic;
+
+    bool musicPlaying;
     bool running;
     int normalSpawned;
     int normalKilled;
@@ -41,6 +44,8 @@ private:
 
     void playMenuMusic();
     void stopMenuMusic();
+    void playGameMusic();
+    void stopGameMusic();
 
 public:
     Game();
