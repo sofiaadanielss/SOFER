@@ -22,7 +22,7 @@ void TextureManager::loadTextures() {
     enemyTexture   = LoadTexture("assets/enemy.png");
     bulletTexture  = LoadTexture("assets/carrot.png");
     bossTexture    = LoadTexture("assets/boss.png");
-    gameBackground = LoadTexture("assets/game.webp");
+    gameBackground = LoadTexture("assets/game.png");
 }
 
 void TextureManager::unloadTextures() {
