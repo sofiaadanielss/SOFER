@@ -37,6 +37,8 @@ void Game::init() {
     gameMusic = LoadMusicStream("assets/game.wav");
     
     player = new Player(380, 500);
+    player->setTexture(textureManager.getPlayerTexture());
+
     musicPlaying = false;
 }
 

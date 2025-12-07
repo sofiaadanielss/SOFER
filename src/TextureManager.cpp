@@ -17,12 +17,12 @@ TextureManager::~TextureManager() {
 void TextureManager::loadTextures() {
     
     menuBackground = LoadTexture("assets/background.png");
-    gameOverBg     = LoadTexture("assets/game.jpg");
+    gameOverBg     = LoadTexture("assets/gameover.jpg");
     playerTexture  = LoadTexture("assets/player.png");
     enemyTexture   = LoadTexture("assets/enemy.png");
     bulletTexture  = LoadTexture("assets/carrot.png");
     bossTexture    = LoadTexture("assets/boss.png");
-    gameBackground = LoadTexture("assets/game.jpg");
+    gameBackground = LoadTexture("assets/game.webp");
 }
 
 void TextureManager::unloadTextures() {

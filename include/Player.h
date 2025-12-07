@@ -2,14 +2,18 @@
 #define PLAYER_H
 
 #include "Entity.h"
+#include "raylib.h"
 
 class Player : public Entity {
     int lives;
     int cooldown;
+    Texture2D texture;
 
 public:
     Player();
     Player(float x, float y);
+
+    void setTexture(Texture2D player);
 
     void moveLeft();
     void moveRight();
