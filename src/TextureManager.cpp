@@ -8,6 +8,7 @@ TextureManager::TextureManager() {
     bulletTexture  = {0};
     bossTexture    = {0};
     gameBackground = {0};
+    shootSound     = {0};
 }
 
 TextureManager::~TextureManager() {
@@ -16,13 +17,14 @@ TextureManager::~TextureManager() {
 
 void TextureManager::loadTextures() {
     
-    menuBackground = LoadTexture("assets/background.png");
+    menuBackground = LoadTexture("assets/menu.png");
     gameOverBg     = LoadTexture("assets/gameover.jpg");
-    playerTexture  = LoadTexture("assets/player.png");
+    playerTexture  = LoadTexture("assets/cinnamon.png");
     enemyTexture   = LoadTexture("assets/enemy.png");
     bulletTexture  = LoadTexture("assets/carrot.png");
     bossTexture    = LoadTexture("assets/boss.png");
     gameBackground = LoadTexture("assets/game.png");
+    shootSound     = LoadSound("assets/pew.wav");
 }
 
 void TextureManager::unloadTextures() {
@@ -33,4 +35,5 @@ void TextureManager::unloadTextures() {
     UnloadTexture(bulletTexture);
     UnloadTexture(bossTexture);
     UnloadTexture(gameBackground);
+    UnloadSound(shootSound);
 }

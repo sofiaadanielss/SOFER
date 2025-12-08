@@ -1,4 +1,3 @@
-// src/Game.cpp
 #include "Game.h"
 #include "MenuScreen.h"  
 #include <algorithm>
@@ -116,6 +115,8 @@ void Game::handleInput() {
                 player->getY(),
                 7.0f
             );
+            
+            PlaySound(textureManager.getShootSound());
         }
     }
 }
@@ -232,10 +233,14 @@ void Game::gameLoop() {
                 break;
                 
             case PLAYING:
+                BeginDrawing();
+                ClearBackground(BLACK);
+                DrawMenu(textureManager.getGameBackground());  
                 playGameMusic();
                 handleInput();
                 update();
                 render();
+                EndDrawing();
                 break;
                 
             case GAME_OVER:

@@ -12,6 +12,7 @@ private:
     Texture2D bulletTexture;
     Texture2D bossTexture;
     Texture2D gameBackground;
+    Sound shootSound;
     
 public:
     TextureManager();
@@ -27,6 +28,7 @@ public:
     Texture2D getBulletTexture() const { return bulletTexture; }
     Texture2D getBossTexture() const { return bossTexture; }
     Texture2D getGameBackground() const {return gameBackground; }
+    Sound getShootSound() const {return shootSound; }
 };
 
 

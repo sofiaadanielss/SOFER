@@ -21,7 +21,8 @@ class Game {
 private:
     GameState       currentState;
     TextureManager  textureManager;
-    Player* player;
+    Player*         player;
+
     std::vector<Enemy*> enemies;
     std::vector<Bullet> bullets;
     ScoreBoard scoreboard;

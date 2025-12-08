@@ -44,7 +44,7 @@ void Player::update() {
 
 void Player::render() {
     if (texture.id != 0) {  
-        float scale = 0.45f;
+        float scale = 0.1f;
         float scaledWidth = texture.width * scale;
         float scaledHeight = texture.height * scale;
 
