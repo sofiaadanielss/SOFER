@@ -10,5 +10,14 @@ void Enemy::update() {
 }
 
 void Enemy::render() {
-    DrawRectangle(x, y, width, height, RED);
+    if (texture.id != 0) {
+        float scale = 0.05f; 
+        float scaledWidth  = texture.width * scale;
+        float scaledHeight = texture.height * scale;
+        DrawTextureEx(texture, (Vector2){x, y}, 0, scale, WHITE);
+        width  = scaledWidth;
+        height = scaledHeight;
+    } else {
+        DrawRectangle(x, y, width, height, RED);
+    }
 }

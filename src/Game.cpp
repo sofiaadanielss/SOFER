@@ -126,14 +126,19 @@ void Game::update() {
     spawnTimer += GetFrameTime();
     if (!bossSpawned && normalSpawned < 20) {
         if (spawnTimer >= 1.0f) {
-            enemies.push_back(new NormalEnemy(GetRandomValue(50, 750), 20));
+            auto* e = new NormalEnemy(GetRandomValue(50, 750), 20);
+            e->setTexture(textureManager.getEnemyTexture());
+            enemies.push_back(e);
             normalSpawned++;
             spawnTimer = 0.0f;
         }
     }
+
     
     if (!bossSpawned && normalKilled >= 20) {
-        enemies.push_back(new Boss(350, 40));
+        auto* boss = new Boss(350, 40);
+        boss->setTexture(textureManager.getBossTexture());
+        enemies.push_back(boss);
         bossSpawned = true;
     }
     
@@ -220,9 +225,9 @@ void Game::gameLoop() {
                 BeginDrawing();
                 ClearBackground(BLACK);
                 DrawMenu(textureManager.getMenuBackground());  
-                DrawText("SOFER BLAST", 160, 190, 70, PINK);
-                DrawText("Press ENTER to Start", 200, 270, 30, MAGENTA);
-                DrawText("Use < and > to move", 285, 320, 25, SKYBLUE);
+                DrawText("SOFER BLAST", 160, 185, 75, PINK);
+                DrawText("Press ENTER to Start", 215, 275, 30, MAGENTA);
+                DrawText("Use < and > to move", 295, 330, 25, SKYBLUE);
                 EndDrawing();
                 break;
                 
@@ -238,8 +243,8 @@ void Game::gameLoop() {
                 ClearBackground(BLACK);
                 DrawTexture(textureManager.getGameOverBg(),0,0,WHITE);
                 DrawText("GAME OVER", 230, 200, 60, RED);
-                DrawText("Press ENTER to play again.", 165, 300, 30, WHITE);
-                DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 300, 400, 20, YELLOW);
+                DrawText("Press ENTER to play again.", 175, 330, 35, WHITE);
+                DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 290, 400, 30, YELLOW);
                 EndDrawing();
                 
                 if (IsKeyPressed(KEY_ENTER)) {

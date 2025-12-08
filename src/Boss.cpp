@@ -19,5 +19,14 @@ bool Boss::takeHit() {
 }
 
 void Boss::render() {
-    DrawRectangle(x, y, width + 20, height + 20, PURPLE);
+    if (texture.id != 0) {
+        float scale = 0.2f; 
+        float scaledWidth  = texture.width * scale;
+        float scaledHeight = texture.height * scale;
+        DrawTextureEx(texture, (Vector2){x, y}, 0, scale, WHITE);
+        width  = scaledWidth + 20;
+        height = scaledHeight + 20;
+    } else {
+        DrawRectangle(x, y, width + 20, height + 20, PURPLE);
+    }
 }
