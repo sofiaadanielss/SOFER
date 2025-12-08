@@ -28,7 +28,7 @@ public:
     Texture2D getBulletTexture() const { return bulletTexture; }
     Texture2D getBossTexture() const { return bossTexture; }
     Texture2D getGameBackground() const {return gameBackground; }
-    Sound getShootSound() const {return shootSound; }
+    Sound     getShootSound() const {return shootSound; }
 };
 
 

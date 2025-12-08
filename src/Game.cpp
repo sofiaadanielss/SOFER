@@ -200,6 +200,7 @@ void Game::update() {
 void Game::render() {
     BeginDrawing();
     ClearBackground(BLACK);
+
     if (currentState == PLAYING) {
         player->render();
         scoreboard.render();
@@ -233,14 +234,12 @@ void Game::gameLoop() {
                 break;
                 
             case PLAYING:
-                BeginDrawing();
-                ClearBackground(BLACK);
-                DrawMenu(textureManager.getGameBackground());  
+                DrawGameBg(textureManager.getGameBackground());
                 playGameMusic();
                 handleInput();
                 update();
                 render();
-                EndDrawing();
+                
                 break;
                 
             case GAME_OVER:
@@ -257,8 +256,9 @@ void Game::gameLoop() {
                     scoreboard.reset();
                     currentState = MENU;
                 }
+
                 break;
-                
+
             case PAUSED:
                 BeginDrawing();
                 ClearBackground(BLACK);
