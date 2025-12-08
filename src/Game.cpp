@@ -102,11 +102,7 @@ void Game::resetCoreGame() {
 }
 
 void Game::handleInput() {
-    if (IsKeyPressed(KEY_P)) {
-        currentState = (currentState == PLAYING) ? PAUSED : PLAYING;
-        return;
-    }
-    
+   
     if (currentState == PLAYING) {
         if (IsKeyDown(KEY_LEFT))  player->moveLeft();
         if (IsKeyDown(KEY_RIGHT)) player->moveRight();
@@ -117,7 +113,6 @@ void Game::handleInput() {
                 player->getY(),
                 7.0f
             );
-            
             PlaySound(textureManager.getShootSound());
         }
     }
@@ -137,8 +132,7 @@ void Game::update() {
         }
     }
 
-    
-    if (!bossSpawned && normalKilled >= 20) {
+    if (!bossSpawned && normalSpawned >= 20) {
         auto* boss = new Boss(350, 40);
         boss->setTexture(textureManager.getBossTexture());
         enemies.push_back(boss);
@@ -240,8 +234,12 @@ void Game::gameLoop() {
                 playGameMusic();
                 handleInput();
                 update();
-                render();
-                
+                render();   
+
+                if (IsKeyPressed(KEY_P)) {
+                    currentState = PAUSED;
+                }
+
                 break;
                 
             case GAME_OVER:
@@ -249,11 +247,11 @@ void Game::gameLoop() {
                 ClearBackground(BLACK);
                 DrawTexture(textureManager.getGameOverBg(),0,0,WHITE);
                 DrawText("GAME OVER", 230, 200, 60, RED);
-                DrawText("Press ENTER to play again.", 175, 330, 35, WHITE);
-                DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 290, 400, 30, YELLOW);
+                DrawText("Press M to play again.", 223, 330, 35, WHITE);
+                DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 295, 400, 30, YELLOW);
                 EndDrawing();
                 
-                if (IsKeyPressed(KEY_ENTER)) {
+                if (IsKeyPressed(KEY_M)) {
                     resetCoreGame();
                     scoreboard.reset();
                     currentState = MENU;
@@ -264,6 +262,7 @@ void Game::gameLoop() {
             case PAUSED:
                 BeginDrawing();
                 ClearBackground(BLACK);
+                DrawGameBg(textureManager.getGameBackground());
                 DrawText("GAME PAUSED", 250, 250, 40, PINK);
                 DrawText("Press P to Resume", 250, 350, 30, MAGENTA);
                 EndDrawing();
@@ -271,6 +270,7 @@ void Game::gameLoop() {
                 if (IsKeyPressed(KEY_P)) {
                     currentState = PLAYING;
                 }
+
                 break;
         }
     }
