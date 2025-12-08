@@ -89,8 +89,10 @@ void Game::resetCoreGame() {
     
     if (player) {
         delete player;
-        player = new Player(380, 500);
     }
+
+    player = new Player(380, 500);
+    player->setTexture(textureManager.getPlayerTexture());
     
     spawnTimer = 0;
     normalSpawned = 0;
