@@ -2,7 +2,7 @@
 #include "raylib.h"
 
 Bullet::Bullet(float x, float y, float speed)
-    : Entity(x, y, 6, 12, speed) {}
+    : Entity(x, y, 7, 14, speed) {}
 
 
 void Bullet::update() {
@@ -11,5 +11,5 @@ void Bullet::update() {
 }
 
 void Bullet::render() {
-    DrawRectangle(x, y, width, height, ORANGE);
+    DrawRectangle(x, y, width, height, PINK);
 }

@@ -30,6 +30,7 @@ void Game::init() {
     UnloadImage(icon); 
 
     InitAudioDevice();
+
     textureManager.loadTextures();
 
     menuMusic = LoadMusicStream("assets/piano.wav"); 
@@ -46,7 +47,7 @@ void Game::playMenuMusic() {
         if (currentMusic && musicPlaying) {
             StopMusicStream(*currentMusic);
         }
-        
+
         PlayMusicStream(menuMusic);
         currentMusic = &menuMusic;
         musicPlaying = true;
@@ -218,14 +219,11 @@ void Game::gameLoop() {
         switch (currentState) {
             case MENU:
                 playMenuMusic();
-                UpdateMusicStream(menuMusic);
+                //UpdateMusicStream(menuMusic);
                 UpdateMenu(currentState);  
                 BeginDrawing();
                 ClearBackground(BLACK);
                 DrawMenu(textureManager.getMenuBackground());  
-                DrawText("SOFER BLAST", 160, 185, 75, PINK);
-                DrawText("Press ENTER to Start", 215, 275, 30, MAGENTA);
-                DrawText("Use < and > to move", 295, 330, 25, SKYBLUE);
                 EndDrawing();
                 break;
                 

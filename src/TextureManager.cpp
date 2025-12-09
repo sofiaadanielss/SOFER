@@ -17,7 +17,7 @@ TextureManager::~TextureManager() {
 
 void TextureManager::loadTextures() {
     
-    menuBackground = LoadTexture("assets/menu.png");
+    menuBackground = LoadTexture("assets/SOFER.png");
     gameBackground = LoadTexture("assets/gamebg.png");
     gameOverBg     = LoadTexture("assets/gameover.jpg");
     playerTexture  = LoadTexture("assets/cinnamon.png");
