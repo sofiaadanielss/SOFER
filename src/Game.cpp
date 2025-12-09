@@ -247,7 +247,7 @@ void Game::gameLoop() {
                 ClearBackground(BLACK);
                 DrawTexture(textureManager.getGameOverBg(),0,0,WHITE);
                 DrawText("GAME OVER", 230, 200, 60, RED);
-                DrawText("Press M to play again.", 223, 330, 35, WHITE);
+                DrawText("Press M to open MENU.", 223, 330, 35, WHITE);
                 DrawText(TextFormat("Final Score: %d", scoreboard.getScore()), 295, 400, 30, YELLOW);
                 EndDrawing();
                 
